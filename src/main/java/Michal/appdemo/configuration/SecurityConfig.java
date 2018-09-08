@@ -1,4 +1,4 @@
-package Michal.configuration;
+package Michal.appdemo.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

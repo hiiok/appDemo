@@ -1,4 +1,4 @@
-package Michal.mainController;
+package Michal.appdemo.mainController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

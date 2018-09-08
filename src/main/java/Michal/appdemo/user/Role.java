@@ -1,4 +1,4 @@
-package Michal.user;
+package Michal.appdemo.user;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
