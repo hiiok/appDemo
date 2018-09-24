@@ -1,10 +1,8 @@
 package Michal.appdemo.user;
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "user")
@@ -42,9 +40,22 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<Role> roles;
 
-    //Ta składowa jest pomijana
     @Transient
     private String operacja;
+
+    @Transient
+    private int nrRoli;
+
+    @Transient
+    private String newPassword;
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 
     public String getOperacja() {
         return operacja;
@@ -109,4 +120,13 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public int getNrRoli() {
+        return nrRoli;
+    }
+
+    public void setNrRoli(int nrRoli) {
+        this.nrRoli = nrRoli;
+    }
+
 }
