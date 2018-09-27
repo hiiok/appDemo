@@ -7,4 +7,6 @@ public interface UserService {
     void saveUser(User user);
 
     void updateUserPassword(String newPassword, String email);
+
+    void updateUserProfile(String newName, String newLastName, String newEmail, int id);
 }

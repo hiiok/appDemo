@@ -1,6 +1,7 @@
 package Michal.appdemo.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,11 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Qualifier("roleRepository")
     @Autowired
     private RoleRepository roleRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -38,5 +42,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserPassword(String newPassword, String email) {
         userRepository.updateUserPassword(bCryptPasswordEncoder.encode(newPassword), email);
+    }
+
+    @Override
+    public void updateUserProfile(String newName, String newLastName, String newEmail, int id) {
+        userRepository.updateUserProfile(newName, newLastName, newEmail, id);
     }
 }

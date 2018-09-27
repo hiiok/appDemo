@@ -2,6 +2,8 @@ package Michal.appdemo.user;
 
 import Michal.appdemo.utilities.UserUtilities;
 import Michal.appdemo.validators.ChangePasswordValidator;
+import Michal.appdemo.validators.EditUserProfileValidator;
+import org.springframework.context.MessageSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +46,7 @@ public class ProfilController {
 
     @POST
     @RequestMapping(value = "/updatepass")
-    public String changeUSerPassword(User user, BindingResult result, Model model, Locale locale) {
+    public String changeUserPassword(User user, BindingResult result, Model model, Locale locale) {
         String returnPage = null;
         new ChangePasswordValidator().validate(user, result);
         new ChangePasswordValidator().checkPasswords(user.getNewPassword(), result);
@@ -52,8 +54,32 @@ public class ProfilController {
             returnPage = "editpassword";
         } else {
             userService.updateUserPassword(user.getNewPassword(), user.getEmail());
-            model.addAttribute("message", messageSource.getMessage("passwordChange.success"), null, locale));
+            model.addAttribute("message", messageSource.getMessage("passwordChange.success", null, locale));
             returnPage = "editpassword";
+        }
+        return returnPage;
+    }
+
+    @POST
+    @RequestMapping(value = "/editprofil")
+    public String changeUserData(Model model) {
+        String username = UserUtilities.getLoggedUser();
+        User user = userService.findUserByEmail(username);
+        model.addAttribute("model", model);
+        return "editprofile";
+    }
+
+    @POST
+    @RequestMapping(value = "/updateprofil")
+    public String changeUserDataAction(User user, BindingResult result, Model model, Locale locale) {
+     String returnPage = null;
+        new EditUserProfileValidator().validate(user, result);
+        if (result.hasErrors()) {
+            returnPage = "editprofil";
+        } else {
+            userService.updateUserProfile(user.getName(), user.getLastName(), user.getEmail(), user.getId());
+            model.addAttribute("message", messageSource.getMessage("profilEdit.success", null, locale));
+            returnPage = "afteredit";
         }
         return returnPage;
     }
