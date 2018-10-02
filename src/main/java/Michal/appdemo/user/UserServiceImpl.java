@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service("userService")
 @Transactional
@@ -47,5 +48,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserProfile(String newName, String newLastName, String newEmail, int id) {
         userRepository.updateUserProfile(newName, newLastName, newEmail, id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> userList = userRepository.findAll();
+        return userList;
     }
 }
